@@ -1,0 +1,15 @@
+{
+  "name": "survival-multiplayer-engine",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev -w @survival/server",
+    "dev:client": "npm run dev -w @survival/client",
+    "build": "npm run build -ws",
+    "dev": "npm run dev:server & npm run dev:client"
+  }
+}

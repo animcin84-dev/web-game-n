@@ -1,0 +1,349 @@
+:root {
+  font-family: 'Inter', system-ui, sans-serif;
+  color-scheme: dark;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #1a1a1a;
+}
+
+canvas {
+  display: block;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+/* Persistent Mini-HUD */
+#hud {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.hud-row {
+  display: flex;
+  gap: 14px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hud-stat {
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-icon {
+  font-size: 16px;
+}
+
+.hud-time {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 12px;
+  border-radius: 8px;
+}
+
+/* Glass Panel UI Layer */
+#ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: opacity 0.25s ease;
+  opacity: 0;
+}
+
+.glass-panel {
+  background: rgba(15, 15, 25, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 0;
+  color: white;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+  width: 380px;
+  overflow: hidden;
+}
+
+/* Tab Bar */
+.tab-bar {
+  display: flex;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 12px 8px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.tab-btn:hover {
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.tab-btn.active {
+  color: white;
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  width: 60%;
+  height: 2px;
+  background: #4a9eff;
+  border-radius: 2px;
+}
+
+/* Tab Content */
+.tab-content {
+  padding: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.vital-row {
+  margin-bottom: 14px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.vitals-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.vitals-fill {
+  height: 100%;
+  transition: width 0.3s;
+}
+
+/* Scrollable List */
+.scroll-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.scroll-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scroll-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+/* Inventory Items */
+.inv-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  transition: background 0.2s;
+}
+
+.inv-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.inv-item-name {
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.inv-item-count {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.inv-item-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.inv-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.inv-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.inv-btn.drop {
+  color: #ff6666;
+}
+
+.inv-btn.use {
+  color: #66ff66;
+}
+
+/* Crafting */
+.craft-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: background 0.2s;
+}
+
+.craft-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.craft-info {
+  flex: 1;
+}
+
+.craft-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.craft-desc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+}
+
+.craft-ingredients {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 2px;
+}
+
+.craft-btn {
+  background: rgba(74, 158, 255, 0.2);
+  border: 1px solid rgba(74, 158, 255, 0.3);
+  color: #4a9eff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.craft-btn:hover {
+  background: rgba(74, 158, 255, 0.35);
+}
+
+.craft-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Hint */
+.hint {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 6px 16px;
+  border-radius: 20px;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* Item Labels (world-space) */
+.item-label {
+  position: absolute;
+  pointer-events: none;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  transform: translate(-50%, -100%);
+  white-space: nowrap;
+}
+
+/* Auto-play button */
+.auto-play-btn {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background: rgba(74, 158, 255, 0.25);
+  border: 1px solid rgba(74, 158, 255, 0.4);
+  color: #4a9eff;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+  backdrop-filter: blur(8px);
+}
+.auto-play-btn:hover {
+  background: rgba(74, 158, 255, 0.4);
+  box-shadow: 0 0 20px rgba(74, 158, 255, 0.2);
+}

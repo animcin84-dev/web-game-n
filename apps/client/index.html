@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Survival MP</title>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <!-- Persistent Mini-HUD (always visible) -->
+    <div id="hud">
+      <div class="hud-row">
+        <div class="hud-stat" style="color:#ff4444;">
+          <span class="hud-icon">♥</span>
+          <span id="hud-health">100</span>
+        </div>
+        <div class="hud-stat" style="color:#ffa700;">
+          <span class="hud-icon">🍖</span>
+          <span id="hud-hunger">100</span>
+        </div>
+        <div class="hud-stat" style="color:#00bbff;">
+          <span class="hud-icon">💧</span>
+          <span id="hud-thirst">100</span>
+        </div>
+        <div class="hud-stat" style="color:#88ccff;">
+          <span class="hud-icon">🌡</span>
+          <span id="hud-temp">36.6</span>°
+        </div>
+      </div>
+      <div class="hud-time" id="hud-time">08:00</div>
+    </div>
+
+    <!-- Full Inventory/Crafting Panel (Tab toggle) -->
+    <div id="ui-layer">
+      <div class="glass-panel">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab="vitals">Vitals</button>
+          <button class="tab-btn" data-tab="inventory">Inventory</button>
+          <button class="tab-btn" data-tab="crafting">Crafting</button>
+        </div>
+
+        <!-- Vitals Tab -->
+        <div class="tab-content" data-tab="vitals">
+          <div class="vital-row">Health: <span id="vit-health">100</span>%<div class="vitals-bar"><div id="vit-health-bar" class="vitals-fill" style="width:100%;background:#ff4444;"></div></div></div>
+          <div class="vital-row">Hunger: <span id="vit-hunger">100</span>%<div class="vitals-bar"><div id="vit-hunger-bar" class="vitals-fill" style="width:100%;background:#ffa700;"></div></div></div>
+          <div class="vital-row">Thirst: <span id="vit-thirst">100</span>%<div class="vitals-bar"><div id="vit-thirst-bar" class="vitals-fill" style="width:100%;background:#00bbff;"></div></div></div>
+          <div class="vital-row">Temp: <span id="vit-temp">36.6</span>°C</div>
+          <div class="vital-row">Time: <span id="vit-time">08:00</span></div>
+        </div>
+
+        <!-- Inventory Tab -->
+        <div class="tab-content" data-tab="inventory" style="display:none;">
+          <div style="margin-bottom:12px;font-size:13px;color:rgba(255,255,255,0.6);">Weight: <span id="inv-weight">0</span>/<span id="inv-max">20</span> kg</div>
+          <div id="inv-list" class="scroll-list">
+            <div style="color:#666;">Empty</div>
+          </div>
+        </div>
+
+        <!-- Crafting Tab -->
+        <div class="tab-content" data-tab="crafting" style="display:none;">
+          <div style="margin-bottom:12px;font-size:13px;color:rgba(255,255,255,0.6);">Available Recipes</div>
+          <div id="craft-list" class="scroll-list">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hint">Tab: Inventory | WASD: Move | Mouse: Aim/Shoot | E: Pickup | B: Build Wall</div>
+    <button id="auto-play-btn" class="auto-play-btn">Auto Demo</button>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
