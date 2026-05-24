@@ -489,7 +489,7 @@ function formatTime(worldTime: number): string {
   return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 }
 
-const ws = new WebSocket(`ws://${window.location.hostname}:54070`);
+const ws = new WebSocket(`ws://${window.location.host}`);
 let localPlayerId = '';
 
 const SERVER_TICK_RATE = 20;
